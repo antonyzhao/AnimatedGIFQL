@@ -81,12 +81,11 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 				NSSize size = NSMakeSize ([rep pixelsWide], [rep pixelsHigh]);
 
 				// Just a buffer between image and quicklook frame window
-				size.width += 30;
-				size.height += 30;
+//				size.width += 30;
+//				size.height += 30;
 				
 				// Before proceeding make sure the user didn't cancel the request
-				if (QLPreviewRequestIsCancelled(preview))
-				{
+				if (QLPreviewRequestIsCancelled(preview)) {
 					return noErr;
 				}
 				
@@ -97,7 +96,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 				[props setObject:[NSNumber numberWithFloat:(size.width)] forKey:(NSString *)kQLPreviewPropertyWidthKey];
 				[props setObject:[NSNumber numberWithFloat:(size.height)] forKey:(NSString *)kQLPreviewPropertyHeightKey];
 				html=[[NSMutableString alloc] init];
-                [html appendString:@"<html><body bgcolor='White'><center><img scalefit='1' style='position: absolute; top: 0; right: 0; bottom: 0; left: 0; height:100%; margin: auto;' src='data:image/gif;base64,"];
+                [html appendString:@"<html><body bgcolor='White' style='overflow: hidden;'><center><img style='width: 100%; height: 100%;' src='data:image/gif;base64,"];
                 NSData *data = [[NSData alloc] initWithContentsOfURL:(__bridge NSURL *)url];
                 NSString *base64 = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
                 [html appendString:base64];
